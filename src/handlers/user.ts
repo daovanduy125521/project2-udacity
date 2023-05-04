@@ -6,13 +6,24 @@ import verifyAuthToken from "../middleware/verifyAuthToken";
 const store = new UsersStore();
 
 const index = async (req: any, res: any) => {
-    const users = await store.index();
-    res.json({ users })
+    try {
+        const users = await store.index();
+        res.json({ users })
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+
 }
 
 const find = async (req: any, res: any) => {
-    const user = await store.find(req.params.id);
-    res.json({ user });
+    try {
+        const user = await store.find(req.params.id);
+        res.json({ user });
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
 };
 
 const create = async (req: any, res: any) => {

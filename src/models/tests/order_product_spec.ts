@@ -17,4 +17,13 @@ describe('OrderProduct Model', () => {
         expect(store.find).toBeDefined();
     });
 
+    it('index method should return a list of order_products', async () => {
+        const result = await store.index();
+        expect(result).not.toBeNull();
+    });
+
+    it('show method should return the correct product', async () => {
+        const result = await store.find('1');
+        expect(result).not.toBeNull();
+    });
 });

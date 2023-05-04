@@ -5,14 +5,24 @@ import express from 'express';
 const store = new OrderStore();
 
 const index = async (req: any, res: any) => {
-    const orders = await store.index();
-    res.json({ orders })
+    try {
+        const orders = await store.index();
+        res.json({ orders })
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
 }
 
 
 const find = async (req: any, res: any) => {
-    const order = await store.find(req.params.id);
-    res.json({ order });
+    try {
+        const order = await store.find(req.params.id);
+        res.json({ order });
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
 };
 
 const create = async (req: any, res: any) => {
@@ -30,8 +40,8 @@ const create = async (req: any, res: any) => {
 };
 
 const order_routers = (app: express.Application) => {
-    app.get('/orders', index);
-    app.get('/orders/:id', find);
+    app.get('/orders', verifyAuthToken, index);
+    app.get('/orders/:id', verifyAuthToken, find);
     app.post('/orders', verifyAuthToken, create);
 }
 

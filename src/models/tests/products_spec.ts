@@ -37,4 +37,9 @@ describe('Product Model', () => {
         });
     });
 
+    it('show method should return find products', async () => {
+        const result = await store.find('1');
+        expect(result).not.toBeNull();
+    });
+
 });

@@ -5,13 +5,24 @@ import express from 'express';
 const store = new ProductsStore();
 
 const index = async (req: any, res: any) => {
-    const products = await store.index();
-    res.json({ products })
+    try {
+        const products = await store.index();
+        res.json({ products })
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
+
 }
 
 const find = async (req: any, res: any) => {
-    const product = await store.find(req.params.id);
-    res.json({ product });
+    try {
+        const product = await store.find(req.params.id);
+        res.json({ product });
+    } catch (error) {
+        res.status(400);
+        res.json(error);
+    }
 };
 
 const create = async (req: any, res: any) => {

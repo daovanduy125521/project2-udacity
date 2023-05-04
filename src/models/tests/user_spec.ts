@@ -32,4 +32,12 @@ describe('User Model', () => {
         const result = await store.find('1');
         expect(result.name).toEqual('duy');
     });
+
+    it('should authenticate a user', async () => {
+        const result = await store.authenticate({
+            name: 'duy',
+            password: '123qweaA@',
+        });
+        expect(result).not.toBeNull();
+    });
 });
